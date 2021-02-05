@@ -6,26 +6,45 @@ Build a Full-Stack React Application using AWS Amplify
 - AWS CLI
 - Amplify CLI
 
-## Installing
+## Config profile
 ```
-npm install
+amplify configure
 ```
+Select region, create user and config AWS profile
 
 ## Create Amplify app
+Create new app
+```
+amplify init
+```
 
-Create Amplify name like `amplifyreactgraphql`:git 
+Go to Amplify app -> Frontend environments
 
 - Select GitHub
 - Allow Authorizer
 - Select repository, branch
+- Name for app `amplifyreactgraphql`
+- Uncheck **Deploy updates to backend resources with your frontend on every code com** at Backend deployments
 - Review and Save and Deploy
 
-## Config the Amplify CLI
+## Setting app backend
+Backend environmens -> Get started
+
+## Connect your app to this backend environment using the Amplify CLI
 ```
-amplify configure
+amplify pull --appId app_id --envName staging
+```
+
+## Create a GrapQL API and database
+
+Add a GraphQL API
+
+```
+amplify add api
 ```
 
 ## App build specification
+Go to Amplify console -> App settings -> Build settings -> App build specification -> Edit
 ```
 version: 1
 backend:
@@ -51,12 +70,37 @@ frontend:
       - node_modules/**/*
 ```
 
-## Create a GrapQL API and database
+## Deploy 
+```
+amplify push --y
+```
 
-Add a GraphQL API
+## Clean up
+Remove auth
+
 ```
-amplify add api
+amplify remove auth
 ```
+
+Then run the Amplify push command:
+
+```
+amplify push
+```
+
+Deleting the entire project
+
+```
+amplify delete
+```
+
+Don't forget delete Amplify app on console
+
+## Issues
+### File project: data should NOT have additional properties: 'graphqltransformer'
+Go to Amplify console -> App settings -> Build settings. Scroll down to "Build Image Settings" section and click Edit
+
+Change Amplify CLI to latest or specific version.
 
 ## Available Scripts
 
